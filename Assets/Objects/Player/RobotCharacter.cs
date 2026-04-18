@@ -70,6 +70,9 @@ public class RobotCharacter : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (currentState != CurrentState.Alive)
+            return;
+
         switch (currentMode)
         {
             case CurrentMode.Recording:
@@ -245,8 +248,15 @@ public class RobotCharacter : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Exit")
-            ChangeState(CurrentState.Win);
+            Victory(collision);
         else if (collision.tag == "Death")
             ChangeState(CurrentState.Dead);
+    }
+
+    public void Victory(Collider2D collision)
+    {
+        ChangeState(CurrentState.Win);
+        transform.position = collision.gameObject.transform.position;
+        rb.linearVelocity = Vector2.zero;
     }
 }

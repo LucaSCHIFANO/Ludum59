@@ -12,6 +12,11 @@ public class GameManager : MonoBehaviour
     private RobotCharacter.CurrentMode currentMode;
     private RobotCharacter.CurrentState currentState;
 
+    [Header("Sounds")]
+    [SerializeField] private SOSound beat;
+    [SerializeField] private SOSound victory;
+    [SerializeField] private SOSound death;
+
     private void Awake()
     {
         timeText.text = "";
@@ -62,9 +67,11 @@ public class GameManager : MonoBehaviour
                 break;
             case RobotCharacter.CurrentMode.Recording:
                 modeText.text = "Recording Inputs";
+                InvokeRepeating("PlayBeat", 0, 1);
                 break;
             case RobotCharacter.CurrentMode.Playing:
                 modeText.text = "Playing Inputs";
+                CancelInvoke("PlayBeat");
                 break;
             case RobotCharacter.CurrentMode.RealTimePlaying:
                 break;
@@ -85,13 +92,14 @@ public class GameManager : MonoBehaviour
                 if (this.currentState == RobotCharacter.CurrentState.Win)
                     return;
                 this.currentState = RobotCharacter.CurrentState.Dead;
+                SoundManager.Instance.Play(death);
                 LevelManager.Instance.LoadCurrentScene();
                 break;
             case RobotCharacter.CurrentState.Win:
                 if (this.currentState == RobotCharacter.CurrentState.Dead)
                     return;
                 this.currentState = RobotCharacter.CurrentState.Win;
-                Debug.Log("Win");
+                SoundManager.Instance.Play(victory);
                 LevelManager.Instance.LoadNextScene();
                 break;
             default:
@@ -99,6 +107,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    private void PlayBeat()
+    {
+        SoundManager.Instance.Play(beat);
+    }
 
 }
