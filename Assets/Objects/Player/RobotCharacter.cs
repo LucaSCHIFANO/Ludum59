@@ -33,17 +33,23 @@ public class RobotCharacter : MonoBehaviour
     [SerializeField] private LayerMask ground;
 
     
+    private int inputId;
+
+    //Events & States
     [SerializeField] private CurrentMode currentMode;
     private List<InputClass> inputList = new List<InputClass>();
 
     public delegate void ModeHandler(CurrentMode mode);
     public event ModeHandler ModeChange;
-    private int inputId;
 
     private CurrentState currentState;
 
     public delegate void StateHandler(CurrentState mode);
     public event StateHandler StateChange;
+
+    //different animation if you die by traps (not implemented)
+    private bool isDeadByHazard = false;
+    private float winTimer;
 
     public enum CurrentMode
     {
@@ -180,7 +186,7 @@ public class RobotCharacter : MonoBehaviour
         }
         else if(currentState != CurrentState.Dead)
         {
-            ChangeState(CurrentState.Dead); 
+            Death(false);
         }
     }
 
@@ -221,28 +227,55 @@ public class RobotCharacter : MonoBehaviour
 
     private void SetAnimations()
     {
-        var running = false;
-        if(rb.linearVelocityX > 0)
+        switch (currentState)
         {
-            sr.flipX = false;
-            running = true;
-        }
-        else if(rb.linearVelocityX < 0)
-        {
-            sr.flipX = true;
-            running = true;
+            case CurrentState.Alive:
+                var running = false;
+                if (rb.linearVelocityX > 0)
+                {
+                    sr.flipX = false;
+                    running = true;
+                }
+                else if (rb.linearVelocityX < 0)
+                {
+                    sr.flipX = true;
+                    running = true;
+                }
+
+                if (IsGrounded())
+                {
+                    if (running)
+                        anim.Play("PlayerRun");
+                    else anim.Play("PlayerIdle");
+                }
+                else
+                {
+                    anim.Play("PlayerJump");
+                }
+                break;
+
+            case CurrentState.Dead:
+                /*if(isDeadByHazard)
+                {
+                    anim.Play("PlayerDeath");
+                }else*/ if (IsGrounded())
+                {
+                    anim.Play("PlayerDeath2");
+                }
+                    break;
+
+            case CurrentState.Win:
+                winTimer += Time.deltaTime;
+                if (winTimer <= 0.5f)
+                    anim.Play("PlayerWin");
+                else
+                    anim.Play("PlayerWin2");
+                break;
+            default:
+                break;
         }
 
-        if (IsGrounded())
-        {
-            if (running)
-                anim.Play("PlayerRun");
-            else anim.Play("PlayerIdle");
-        }
-        else
-        {
-            anim.Play("PlayerJump");
-        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -250,7 +283,7 @@ public class RobotCharacter : MonoBehaviour
         if (collision.tag == "Exit")
             Victory(collision);
         else if (collision.tag == "Death")
-            ChangeState(CurrentState.Dead);
+            Death(true);
     }
 
     public void Victory(Collider2D collision)
@@ -258,5 +291,12 @@ public class RobotCharacter : MonoBehaviour
         ChangeState(CurrentState.Win);
         transform.position = collision.gameObject.transform.position;
         rb.linearVelocity = Vector2.zero;
+    }
+
+    public void Death(bool _isDeadByHazard)
+    {
+        isDeadByHazard = _isDeadByHazard;
+        rb.linearVelocity = Vector2.zero;
+        ChangeState(CurrentState.Dead);
     }
 }

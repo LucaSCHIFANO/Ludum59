@@ -184,7 +184,7 @@ public class SoundManager : MonoBehaviour
 
     private SoundEmitter CreateFunction()
     {
-        return Instantiate(audioSourcePrefab);
+        return Instantiate(audioSourcePrefab, this.transform);
     }
 
     private void OnGetFunction(SoundEmitter _soundEmitterGet)

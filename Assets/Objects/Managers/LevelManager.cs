@@ -49,24 +49,27 @@ public class LevelManager : MonoBehaviour
        return levelID; 
     }
     
-    public void LoadNextScene()
+    public void LoadNextScene(bool skipWait = false)
     {
         levelID++;
-        LoadScene(levelID);
+        LoadScene(levelID, skipWait);
     }
 
-    public void LoadCurrentScene()
+    public void LoadCurrentScene(bool skipWait = false)
     {
-        LoadScene(levelID);
+        LoadScene(levelID, skipWait);
     }
 
-    public void LoadScene(int id)
+    public void LoadScene(int id, bool skipWait = false)
     {
-        StartCoroutine(LoadSceneAnimation(id));
+        StartCoroutine(LoadSceneAnimation(id, skipWait));
     }
 
-    IEnumerator LoadSceneAnimation(int id)
+    IEnumerator LoadSceneAnimation(int id, bool skipWait = false)
     {
+        if(!skipWait)
+            yield return new WaitForSeconds(1f);
+
         FadeIn();
         yield return new WaitForSeconds(0.6f);
         TrueLoadScene(levelID);

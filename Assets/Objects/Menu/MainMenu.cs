@@ -41,7 +41,7 @@ public class MainMenu : MonoBehaviour
         {
             case MenuType.Main:
                 canInteract = false;
-                LevelManager.Instance.LoadScene(0);
+                LevelManager.Instance.LoadScene(0, true);
                 break;
             case MenuType.Options:
                 OptionsTab.SetActive(!isOptionsOpened);
