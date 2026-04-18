@@ -40,7 +40,7 @@
                     "id": "51a1987c-ff08-4b99-9191-1a33fd58c3d4",
                     "path": "1DAxis",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "AxisDeadzone",
                     "groups": "",
                     "action": "Movement",
                     "isComposite": true,

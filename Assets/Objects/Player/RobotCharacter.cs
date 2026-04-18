@@ -8,6 +8,7 @@ public class RobotCharacter : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator animator;
+    private BoxCollider2D bc;
 
     [Header("Movement")]
     [SerializeField] private float speed;
@@ -23,6 +24,9 @@ public class RobotCharacter : MonoBehaviour
 
     [SerializeField] private float gravityJump;
     [SerializeField] private float gravityFall;
+
+    [SerializeField] float extraHeightBelow;
+    [SerializeField] private LayerMask ground;
 
 
     [SerializeField] private CurrentMode currentMode;
@@ -41,6 +45,7 @@ public class RobotCharacter : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        bc = GetComponent<BoxCollider2D>();
         inputId = 0;
     }
 
@@ -89,7 +94,7 @@ public class RobotCharacter : MonoBehaviour
 
     private void Jump(ref bool _isJumping)
     {
-        if (currentJumpTime < 0) _isJumping = false;
+        if (currentJumpTime <= 0) _isJumping = false;
         
         if (_isJumping)
         {
@@ -98,9 +103,19 @@ public class RobotCharacter : MonoBehaviour
             rb.gravityScale = gravityJump;
         }
         else rb.gravityScale = gravityFall;
+    }
 
+    public bool IsGrounded()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(bc.bounds.center,
+            bc.bounds.size, 0f, Vector2.down, extraHeightBelow, ground);
 
+        if (raycastHit.collider != null)
+        {
+            return raycastHit.collider != null;
+        }
 
+        return false;
     }
 
     #region Inputs
@@ -116,13 +131,17 @@ public class RobotCharacter : MonoBehaviour
         {
             Movement(inputList[inputId].joystickXPosition);
 
-            if (inputList[inputId].jumpPerformed) 
-            { 
+            if (inputList[inputId].jumpPerformed && IsGrounded()) 
                 currentJumpTime = jumpTime;
-            }
+            
+            if (!inputList[inputId].jumpButtonPressed && isJumpingLast)
+                currentJumpTime = 0;
+
             isJumpingRecorded = inputList[inputId].jumpButtonPressed;
 
             Jump(ref isJumpingRecorded);
+
+            isJumpingLast = inputList[inputId].jumpButtonPressed;
             inputId++;
         }
     }
@@ -138,9 +157,15 @@ public class RobotCharacter : MonoBehaviour
         if (context.performed)
         {
             isJumping = true;
-            currentJumpTime = jumpTime;
+            if (currentMode == CurrentMode.RealTimePlaying && IsGrounded())
+                currentJumpTime = jumpTime;
         }
-        else if (context.canceled) isJumping = false;
+        else if (context.canceled)
+        {
+            isJumping = false;
+            if (currentMode == CurrentMode.RealTimePlaying)
+                currentJumpTime = 0;
+        }
     }
 
     public void EndRecordingInput(InputAction.CallbackContext context)
