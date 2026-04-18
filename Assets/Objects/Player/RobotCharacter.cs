@@ -10,6 +10,10 @@ public class RobotCharacter : MonoBehaviour
     private Animator animator;
     private BoxCollider2D bc;
 
+    [Header("References")]
+    [SerializeField] private SpriteRenderer sr;
+    [SerializeField] private Animator anim;
+
     [Header("Movement")]
     [SerializeField] private float speed;
     private Vector2 currentJoystickPosition;
@@ -28,14 +32,13 @@ public class RobotCharacter : MonoBehaviour
     [SerializeField] float extraHeightBelow;
     [SerializeField] private LayerMask ground;
 
-
-    private int inputId;
     
     [SerializeField] private CurrentMode currentMode;
     private List<InputClass> inputList = new List<InputClass>();
 
     public delegate void ModeHandler(CurrentMode mode);
     public event ModeHandler ModeChange;
+    private int inputId;
 
     private CurrentState currentState;
 
@@ -86,7 +89,7 @@ public class RobotCharacter : MonoBehaviour
 
     void Update()
     {
-        
+        SetAnimations(); 
     }
 
 
@@ -212,6 +215,32 @@ public class RobotCharacter : MonoBehaviour
         }
     }
     #endregion
+
+    private void SetAnimations()
+    {
+        var running = false;
+        if(rb.linearVelocityX > 0)
+        {
+            sr.flipX = false;
+            running = true;
+        }
+        else if(rb.linearVelocityX < 0)
+        {
+            sr.flipX = true;
+            running = true;
+        }
+
+        if (IsGrounded())
+        {
+            if (running)
+                anim.Play("PlayerRun");
+            else anim.Play("PlayerIdle");
+        }
+        else
+        {
+            anim.Play("PlayerJump");
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

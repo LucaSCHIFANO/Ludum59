@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private float timer;
 
     private RobotCharacter.CurrentMode currentMode;
+    private RobotCharacter.CurrentState currentState;
 
     private void Awake()
     {
@@ -81,10 +82,15 @@ public class GameManager : MonoBehaviour
             case RobotCharacter.CurrentState.Alive:
                 break;
             case RobotCharacter.CurrentState.Dead:
-                Debug.Log("Death");
+                if (this.currentState == RobotCharacter.CurrentState.Win)
+                    return;
+                this.currentState = RobotCharacter.CurrentState.Dead;
                 LevelManager.Instance.LoadCurrentScene();
                 break;
             case RobotCharacter.CurrentState.Win:
+                if (this.currentState == RobotCharacter.CurrentState.Dead)
+                    return;
+                this.currentState = RobotCharacter.CurrentState.Win;
                 Debug.Log("Win");
                 LevelManager.Instance.LoadNextScene();
                 break;
