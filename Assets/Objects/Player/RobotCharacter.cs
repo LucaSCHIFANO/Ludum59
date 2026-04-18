@@ -29,16 +29,32 @@ public class RobotCharacter : MonoBehaviour
     [SerializeField] private LayerMask ground;
 
 
+    private int inputId;
+    
     [SerializeField] private CurrentMode currentMode;
     private List<InputClass> inputList = new List<InputClass>();
 
-    private int inputId;
+    public delegate void ModeHandler(CurrentMode mode);
+    public event ModeHandler ModeChange;
 
-    enum CurrentMode
+    private CurrentState currentState;
+
+    public delegate void StateHandler(CurrentState mode);
+    public event StateHandler StateChange;
+
+    public enum CurrentMode
     {
+        Looking,
         Recording,
         Playing,
         RealTimePlaying,
+    }
+
+    public enum CurrentState
+    {
+        Alive,
+        Dead,
+        Win,
     }
 
     void Awake()
@@ -118,6 +134,18 @@ public class RobotCharacter : MonoBehaviour
         return false;
     }
 
+    private void ChangeMode(CurrentMode newMode)
+    {
+        currentMode = newMode;
+        ModeChange.Invoke(currentMode);
+    }
+
+    private void ChangeState(CurrentState newState)
+    {
+       currentState = newState;
+        StateChange.Invoke(currentState);
+    }
+
     #region Inputs
     private void RecordInput()
     {
@@ -143,6 +171,10 @@ public class RobotCharacter : MonoBehaviour
 
             isJumpingLast = inputList[inputId].jumpButtonPressed;
             inputId++;
+        }
+        else if(currentState != CurrentState.Dead)
+        {
+            ChangeState(CurrentState.Dead); 
         }
     }
 
@@ -170,13 +202,22 @@ public class RobotCharacter : MonoBehaviour
 
     public void EndRecordingInput(InputAction.CallbackContext context)
     {
-        if (context.performed && currentMode == CurrentMode.Recording)
+        if (context.performed && currentMode == CurrentMode.Looking)
         {
-            currentMode = CurrentMode.Playing;
-        }else if(context.performed && currentMode == CurrentMode.Playing)
+            ChangeMode(CurrentMode.Recording);
+        }
+        else if(context.performed && currentMode == CurrentMode.Recording)
         {
-            currentMode = CurrentMode.Recording;
+            ChangeMode(CurrentMode.Playing);
         }
     }
     #endregion
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Exit")
+            ChangeState(CurrentState.Win);
+        else if (collision.tag == "Death")
+            ChangeState(CurrentState.Dead);
+    }
 }
