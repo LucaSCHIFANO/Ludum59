@@ -481,12 +481,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5399373402320856727, guid: ce113361e6aaa9a46811b970bd097457, type: 3}
       propertyPath: currentMode
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9064074288096586166, guid: ce113361e6aaa9a46811b970bd097457, type: 3}
-      propertyPath: victory
-      value: 
-      objectReference: {fileID: 11400000, guid: a65df4f884c811646af5e9185417dcdf, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

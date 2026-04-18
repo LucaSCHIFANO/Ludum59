@@ -20,9 +20,9 @@ MonoBehaviour:
   volume: 0.1
   minRandomVolume: 0
   MaxRandomVolume: 0
-  isPitchRandom: 1
+  isPitchRandom: 0
   pitch: 1
-  minRandomPitch: 0.9
-  MaxRandomPitch: 1.1
+  minRandomPitch: 0
+  MaxRandomPitch: 0
   loop: 0
   numberOfLoops: 0

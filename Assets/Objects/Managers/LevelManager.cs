@@ -33,7 +33,15 @@ public class LevelManager : MonoBehaviour
 
         instance = this;
         DontDestroyOnLoad(gameObject);
+        StartCoroutine(SpawnAnimation());
+    }
+
+    IEnumerator SpawnAnimation()
+    {
         FadeOut();
+        yield return new WaitForSeconds(0.6f);
+        leftTransition.SetActive(false);
+        rightTransition.SetActive(false);
     }
 
     public int GetLevelId()
@@ -64,6 +72,9 @@ public class LevelManager : MonoBehaviour
         TrueLoadScene(levelID);
         yield return new WaitForSeconds(0.2f);
         FadeOut();
+        yield return new WaitForSeconds(0.6f);
+        leftTransition.SetActive(false);
+        rightTransition.SetActive(false);
     }
 
     private void TrueLoadScene(int id)
@@ -73,6 +84,18 @@ public class LevelManager : MonoBehaviour
             SceneManager.LoadScene(listScene[levelID].name);
         else
             SceneManager.LoadScene(mainMenu.name);
+    }
+
+    public void QuitGame()
+    {
+        StartCoroutine(LoadSceneAnimation());
+    }
+
+    IEnumerator LoadSceneAnimation()
+    {
+        FadeIn();
+        yield return new WaitForSeconds(0.6f);
+        Application.Quit();
     }
 
     private void FadeIn()
