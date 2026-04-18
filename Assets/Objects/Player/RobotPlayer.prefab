@@ -56,7 +56,7 @@ SpriteRenderer:
   m_SmallMeshCulling: 1
   m_ForceMeshLod: -1
   m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
@@ -78,8 +78,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1761570121
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -7904113971738107227, guid: dfc6dbd05e937b540bb700b916433903, type: 3}
@@ -320,6 +320,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 112afde2-5466-4db8-acbe-9350cb305fca
     m_ActionName: 'Player/EndRecording[/XInputControllerWindows/start,/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3129943304184757698}
+        m_TargetAssemblyTypeName: RobotCharacter, Assembly-CSharp
+        m_MethodName: ShowTimingInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 421d6782-3da9-4f6b-80b3-b0a01f3122b9
+    m_ActionName: 'Player/ShowTiming[/XInputControllerWindows/buttonWest,/Keyboard/backspace]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3129943304184757698}
+        m_TargetAssemblyTypeName: RobotCharacter, Assembly-CSharp
+        m_MethodName: QuitInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5fe50320-423c-4cc1-aea4-a3f779cb4aae
+    m_ActionName: 'Player/Quit[/Keyboard/escape,/XInputControllerWindows/select]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

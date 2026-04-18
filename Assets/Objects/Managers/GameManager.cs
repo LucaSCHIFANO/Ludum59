@@ -1,11 +1,14 @@
 using TMPro;
 using UnityEngine;
+using static RobotCharacter;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private RobotCharacter robotCharacter;
     [SerializeField] private TextMeshProUGUI modeText;
     [SerializeField] private TextMeshProUGUI timeText;
+    [SerializeField] private GameObject infoText;
+    [SerializeField] private bool showInfoText;
 
     private float timer;
 
@@ -17,9 +20,30 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SOSound victory;
     [SerializeField] private SOSound death;
 
+    public delegate void ResetAllTraps();
+    public event ResetAllTraps ResetTraps;
+
+    public delegate void ShowAllInfos(bool show);
+    public event ShowAllInfos ShowInfos;
+
+    static GameManager instance;
+    public static GameManager Instance
+    {
+        get => instance;
+    }
+
     private void Awake()
     {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
         timeText.text = "";
+        infoText.SetActive(showInfoText);
     }
 
     void Start()
@@ -63,14 +87,16 @@ public class GameManager : MonoBehaviour
         switch (currentMode)
         {
             case RobotCharacter.CurrentMode.Looking:
-                modeText.text = "Press Start when you are ready to record";
+                modeText.text = "Press Start/Enter when you are ready to record";
                 break;
             case RobotCharacter.CurrentMode.Recording:
-                modeText.text = "Recording Inputs";
+                modeText.text = "Recording Inputs... ¨Press Start/Enter again to stop recording";
+                ResetTraps?.Invoke();
                 InvokeRepeating("PlayBeat", 0, 1);
                 break;
             case RobotCharacter.CurrentMode.Playing:
-                modeText.text = "Playing Inputs";
+                modeText.text = "Playing Inputs...";
+                ResetTraps?.Invoke();
                 CancelInvoke("PlayBeat");
                 break;
             case RobotCharacter.CurrentMode.RealTimePlaying:
@@ -105,6 +131,11 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void ShowInfo(bool show)
+    {
+        ShowInfos?.Invoke(show);
     }
 
     private void PlayBeat()

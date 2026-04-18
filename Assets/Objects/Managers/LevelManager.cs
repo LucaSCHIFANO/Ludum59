@@ -19,8 +19,7 @@ public class LevelManager : MonoBehaviour
 
 
     [Header("Scenes")]
-    [SerializeField] private SceneAsset mainMenu;
-    [SerializeField] private List<SceneAsset> listScene = new List<SceneAsset>();
+    [SerializeField] private LevelList listScene;
     private int levelID;
 
     private void Awake()
@@ -46,9 +45,9 @@ public class LevelManager : MonoBehaviour
 
     public int GetLevelId()
     {
-       return levelID; 
+        return levelID;
     }
-    
+
     public void LoadNextScene(bool skipWait = false)
     {
         levelID++;
@@ -65,6 +64,11 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(LoadSceneAnimation(id, skipWait));
     }
 
+    public void LoadMainMenu(bool skipWait = false)
+    {
+        StartCoroutine(LoadSceneAnimation(-1, skipWait));
+    }
+
     IEnumerator LoadSceneAnimation(int id, bool skipWait = false)
     {
         if(!skipWait)
@@ -72,7 +76,7 @@ public class LevelManager : MonoBehaviour
 
         FadeIn();
         yield return new WaitForSeconds(0.6f);
-        TrueLoadScene(levelID);
+        TrueLoadScene(id);
         yield return new WaitForSeconds(0.2f);
         FadeOut();
         yield return new WaitForSeconds(0.6f);
@@ -83,10 +87,10 @@ public class LevelManager : MonoBehaviour
     private void TrueLoadScene(int id)
     {
         levelID = id;
-        if (levelID < listScene.Count && levelID >= 0)
-            SceneManager.LoadScene(listScene[levelID].name);
+        if (levelID < listScene.listScene.Count && levelID >= 0)
+            SceneManager.LoadScene(listScene.listScene[levelID]);
         else
-            SceneManager.LoadScene(mainMenu.name);
+            SceneManager.LoadScene(listScene.mainMenu);
     }
 
     public void QuitGame()

@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 4500029985219191531}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.92977, y: -0.61824, z: -10}
+  m_LocalPosition: {x: 1.62, y: -0.61824, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 00000000e1113c85496dff68
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -410,11 +410,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6053460598724282882, guid: 46ee4ec6fc52db740a9c98fd6e3db279, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.45023
+      value: -5.47
       objectReference: {fileID: 0}
     - target: {fileID: 6053460598724282882, guid: 46ee4ec6fc52db740a9c98fd6e3db279, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.3882399
+      value: -3.52
       objectReference: {fileID: 0}
     - target: {fileID: 6053460598724282882, guid: 46ee4ec6fc52db740a9c98fd6e3db279, type: 3}
       propertyPath: m_LocalPosition.z
@@ -485,14 +485,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 1681026702792407871, guid: ad73b814080e5c4448c44d27116324b7, type: 3}
-      propertyPath: death
-      value: 
-      objectReference: {fileID: 11400000, guid: e605cad7723453e40bed30664cca89e9, type: 2}
-    - target: {fileID: 1681026702792407871, guid: ad73b814080e5c4448c44d27116324b7, type: 3}
-      propertyPath: victory
-      value: 
-      objectReference: {fileID: 11400000, guid: a65df4f884c811646af5e9185417dcdf, type: 2}
     - target: {fileID: 1681026702792407871, guid: ad73b814080e5c4448c44d27116324b7, type: 3}
       propertyPath: robotCharacter
       value: 

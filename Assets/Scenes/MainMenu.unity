@@ -3603,10 +3603,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1681559783574044252, guid: 39ed316df77f80d488a90bc624dce395, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1911518495048999997, guid: 39ed316df77f80d488a90bc624dce395, type: 3}
       propertyPath: m_Name
       value: LevelManager
@@ -3649,10 +3645,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3856441041884563351, guid: 39ed316df77f80d488a90bc624dce395, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6927089497259893179, guid: 39ed316df77f80d488a90bc624dce395, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

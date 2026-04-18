@@ -250,8 +250,7 @@ MonoBehaviour:
   rightTransition: {fileID: 1681559783574044252}
   anim: {fileID: 5384494766023933942}
   mainMenu: {fileID: 102900000, guid: 91388500a58a04d4a99f04390a71d42c, type: 3}
-  listScene:
-  - {fileID: 102900000, guid: 8c9cfa26abfee488c85f1582747f6a02, type: 3}
+  listScene: {fileID: 11400000, guid: 7b512a0f6cd850a478cb49f1bbe9108e, type: 2}
 --- !u!1 &6927089497259893179
 GameObject:
   m_ObjectHideFlags: 0

@@ -149,13 +149,13 @@ public class RobotCharacter : MonoBehaviour
     private void ChangeMode(CurrentMode newMode)
     {
         currentMode = newMode;
-        ModeChange.Invoke(currentMode);
+        ModeChange?.Invoke(currentMode);
     }
 
     private void ChangeState(CurrentState newState)
     {
        currentState = newState;
-        StateChange.Invoke(currentState);
+        StateChange?.Invoke(currentState);
     }
 
     #region Inputs
@@ -221,6 +221,29 @@ public class RobotCharacter : MonoBehaviour
         else if(context.performed && currentMode == CurrentMode.Recording)
         {
             ChangeMode(CurrentMode.Playing);
+        }
+    }
+
+    public void ShowTimingInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            GameManager.Instance.ShowInfo(true);
+        }
+        else if (context.canceled)
+        {
+            GameManager.Instance.ShowInfo(false);
+        }
+    }
+
+    public void QuitInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if(currentMode == CurrentMode.Playing)
+                LevelManager.Instance.LoadCurrentScene(true);
+            else
+                LevelManager.Instance.LoadMainMenu(true);
         }
     }
     #endregion
