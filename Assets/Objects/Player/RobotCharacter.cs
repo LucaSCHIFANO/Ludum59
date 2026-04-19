@@ -275,10 +275,16 @@ public class RobotCharacter : MonoBehaviour
     {
         if (context.performed)
         {
-            if(currentMode == CurrentMode.Playing || currentMode == CurrentMode.Recording)
+            LevelManager.Instance.LoadMainMenu(true);
+        }
+    }
+
+    public void ResetInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (currentMode == CurrentMode.Playing || currentMode == CurrentMode.Recording)
                 LevelManager.Instance.LoadCurrentScene(true);
-            else
-                LevelManager.Instance.LoadMainMenu(true);
         }
     }
     #endregion

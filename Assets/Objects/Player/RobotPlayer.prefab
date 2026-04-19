@@ -500,6 +500,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5fe50320-423c-4cc1-aea4-a3f779cb4aae
     m_ActionName: 'Player/Quit[/Keyboard/escape,/XInputControllerWindows/select]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3129943304184757698}
+        m_TargetAssemblyTypeName: RobotCharacter, Assembly-CSharp
+        m_MethodName: ResetInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4c36ecc7-98b9-462f-a42d-a1280fb22703
+    m_ActionName: 'Player/Reset[/XInputControllerWindows/buttonEast,/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

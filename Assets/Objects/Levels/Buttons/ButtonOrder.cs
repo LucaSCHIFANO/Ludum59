@@ -6,6 +6,7 @@ public class ButtonOrder : MonoBehaviour
     private Door door;
 
     [SerializeField] private SpriteRenderer sr;
+    [SerializeField] private SpriteRenderer srNumber;
     [SerializeField] private Sprite on;
     [SerializeField] private Sprite off;
 
@@ -17,9 +18,9 @@ public class ButtonOrder : MonoBehaviour
     public void SetDoor(Door door, int id)
     {
         this.door = door;
-        /*if(id < 0 || id >= spriteList.Count)
-            sr.sprite = null;
-        else sr.sprite = spriteList[id];*/
+        if(id < 0 || id >= spriteList.Count)
+            srNumber.sprite = null;
+        else srNumber.sprite = spriteList[id];
     }
 
     public void Activate(bool activate)

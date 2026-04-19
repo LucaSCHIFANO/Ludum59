@@ -1780,6 +1780,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneBasics
       objectReference: {fileID: 0}
+    - target: {fileID: 3028780694285690244, guid: ce113361e6aaa9a46811b970bd097457, type: 3}
+      propertyPath: m_margin.x
+      value: 893.87616
+      objectReference: {fileID: 0}
     - target: {fileID: 3384750029140750368, guid: ce113361e6aaa9a46811b970bd097457, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.12
