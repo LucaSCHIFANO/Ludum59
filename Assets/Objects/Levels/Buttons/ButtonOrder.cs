@@ -4,16 +4,15 @@ using UnityEngine;
 public class ButtonOrder : MonoBehaviour
 {
     private Door door;
-    [SerializeField] private GameObject visual;
+
+    [SerializeField] private SpriteRenderer sr;
+    [SerializeField] private Sprite on;
+    [SerializeField] private Sprite off;
+
+
     [SerializeField] private List<Sprite> spriteList = new List<Sprite>();
-    private SpriteRenderer sr;
 
     private bool isActivated;
-
-    private void Awake()
-    {
-        //sr = GetComponent<SpriteRenderer>();    
-    }
 
     public void SetDoor(Door door, int id)
     {
@@ -26,7 +25,7 @@ public class ButtonOrder : MonoBehaviour
     public void Activate(bool activate)
     {
         isActivated = activate;
-        visual.SetActive(!activate);
+        sr.sprite = activate ? on : off;
         if (activate == true)
             door?.ButtonActivated(this);
     }

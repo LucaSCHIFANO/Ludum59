@@ -4,22 +4,29 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> listLight = new List<GameObject>();
-    [SerializeField] private List<ButtonOrder> listButtons = new List<ButtonOrder>();
-    private int buttonID;
+    [SerializeField] private Sprite IconOn;
+    [SerializeField] private Sprite IconOff;
 
-    [SerializeField] private GameObject door;
+    [SerializeField] private GameObject colliderClosed;
+    [SerializeField] private GameObject colliderOpen;
+
+    [SerializeField] private List<SpriteRenderer> listLight = new List<SpriteRenderer>();
+    [SerializeField] private List<ButtonOrder> listButtons = new List<ButtonOrder>();
+    [SerializeField] private Animator anim;
+    private int buttonID;
     private bool isOpen;
 
     void Start()
     {
         for (int i = 0; i < listLight.Count; i++)
         {
-            listLight[i].SetActive(false);
+            listLight[i].sprite = IconOff;
             listButtons[i].SetDoor(this, i);
         }
 
         GameManager.Instance.ResetTraps += Reset;
+        colliderOpen.SetActive(false);
+        colliderClosed.SetActive(true);
     }
 
     public void ButtonActivated(ButtonOrder button)
@@ -29,16 +36,11 @@ public class Door : MonoBehaviour
 
         if (button == listButtons[buttonID])
         {
-            listLight[buttonID].SetActive(true);
+            listLight[buttonID].sprite = IconOn;
             buttonID++;
             if(buttonID == listLight.Count)
             {
-                isOpen = true;
-                door.SetActive(false);
-                for (int i = 0; i < listLight.Count; i++)
-                {
-                    listLight[i].SetActive(false);
-                }
+                Open();    
             }
         }
         else
@@ -47,13 +49,27 @@ public class Door : MonoBehaviour
         }
     }
 
+    private void Open()
+    {
+        isOpen = true;
+        anim.Play("DoorButtonOpening");
+
+        for (int i = 0; i < listLight.Count; i++)
+        {
+            listLight[i].sprite = IconOn;
+        }
+
+        colliderOpen.SetActive(true);
+        colliderClosed.SetActive(false);
+    }
+
     private void Reset()
     {
         buttonID = 0;
         for (int i = 0; i < listButtons.Count; i++)
         {
             listButtons[i].Activate(false);
-            listLight[i].SetActive(false);
+            listLight[i].sprite = IconOff;
         }
 
     }
