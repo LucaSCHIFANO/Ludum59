@@ -62,15 +62,6 @@ public class LevelManager : MonoBehaviour
         LoadScene(levelID, skipWait);
     }
 
-    //pour le menu car il ne peut pas avoir 2 parametres
-    public void LoadScene(int id)
-    {
-        if (!canReset)
-            return;
-
-        StartCoroutine(LoadSceneAnimation(id, true));
-    }
-
     public void LoadScene(int id, bool skipWait = false)
     {
         if (!canReset)
