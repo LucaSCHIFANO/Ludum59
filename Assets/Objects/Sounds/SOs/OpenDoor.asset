@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 638b5c8b146c95b4f94e2cec09a3341d, type: 3}
+  m_Name: OpenDoor
+  m_EditorClassIdentifier: Assembly-CSharp::SOSound
+  sounds:
+  - clip: {fileID: 8300000, guid: 149decbeed834584a8579b5edbbfe2e5, type: 3}
+    weight: 1
+  soundType: 1
+  isVolumeRandom: 0
+  volume: 0.1
+  minRandomVolume: 0
+  MaxRandomVolume: 0
+  isPitchRandom: 0
+  pitch: 1
+  minRandomPitch: 0
+  MaxRandomPitch: 0
+  loop: 0
+  numberOfLoops: 0

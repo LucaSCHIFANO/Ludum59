@@ -16,6 +16,8 @@ public class Door : MonoBehaviour
     private int buttonID;
     private bool isOpen;
 
+    [SerializeField] private SOSound openDoor;
+
     void Start()
     {
         for (int i = 0; i < listLight.Count; i++)
@@ -61,6 +63,8 @@ public class Door : MonoBehaviour
 
         colliderOpen.SetActive(true);
         colliderClosed.SetActive(false);
+
+        SoundManager.Instance.Play(openDoor);
     }
 
     private void Reset()

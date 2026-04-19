@@ -714,6 +714,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   anim: {fileID: 3583011366272354215}
+  openDoor: {fileID: 11400000, guid: 1087f5d4559fcaf49b364c57d13e2d24, type: 2}
 --- !u!1 &6064569287980912049
 GameObject:
   m_ObjectHideFlags: 0

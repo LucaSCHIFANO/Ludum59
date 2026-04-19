@@ -32,6 +32,7 @@ public class RobotCharacter : MonoBehaviour
 
     [SerializeField] float extraHeightBelow;
     [SerializeField] private LayerMask ground;
+    [SerializeField] private SOSound jumpSound;
 
     [Header("Antenna")]
     [SerializeField] private Animator antennaAnim;
@@ -206,8 +207,11 @@ public class RobotCharacter : MonoBehaviour
         {
             Movement(inputList[inputId].joystickXPosition);
 
-            if (inputList[inputId].jumpPerformed && IsGrounded()) 
+            if (inputList[inputId].jumpPerformed && IsGrounded())
+            {
+                SoundManager.Instance.Play(jumpSound);
                 currentJumpTime = jumpTime;
+            }
             
             if (!inputList[inputId].jumpButtonPressed && isJumpingLast)
                 currentJumpTime = 0;
@@ -237,7 +241,10 @@ public class RobotCharacter : MonoBehaviour
         {
             isJumping = true;
             if (currentMode == CurrentMode.RealTimePlaying && IsGrounded())
+            {
                 currentJumpTime = jumpTime;
+                SoundManager.Instance.Play(jumpSound);
+            }
         }
         else if (context.canceled)
         {

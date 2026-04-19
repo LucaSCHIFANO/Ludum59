@@ -97,6 +97,7 @@ MonoBehaviour:
   srNumber: {fileID: 6860457339549336026}
   on: {fileID: -41550680504081582, guid: 9cbad500865211f448acc47be2cd24e3, type: 3}
   off: {fileID: -8462237113019816033, guid: 9cbad500865211f448acc47be2cd24e3, type: 3}
+  button: {fileID: 11400000, guid: 5ed2901481844a84ab3479acf5e8cf7d, type: 2}
   spriteList:
   - {fileID: -460913024181997540, guid: 47fed06fc547cc145affbe73729ce768, type: 3}
   - {fileID: 2788294223550266758, guid: 47fed06fc547cc145affbe73729ce768, type: 3}

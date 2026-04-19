@@ -18,6 +18,10 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private AudioMixerGroup musicAudioMixer;
     [SerializeField] private AudioMixerGroup sfxAudioMixer;
 
+    [Header("Cursor")]
+    [SerializeField] private GameObject cursor;
+    private int ID;
+
     public enum MenuType
     {
         Main = 0,

@@ -10,6 +10,8 @@ public class ButtonOrder : MonoBehaviour
     [SerializeField] private Sprite on;
     [SerializeField] private Sprite off;
 
+    [SerializeField] private SOSound button;
+
 
     [SerializeField] private List<Sprite> spriteList = new List<Sprite>();
 
@@ -28,7 +30,10 @@ public class ButtonOrder : MonoBehaviour
         isActivated = activate;
         sr.sprite = activate ? on : off;
         if (activate == true)
+        {
+            SoundManager.Instance.Play(button);
             door?.ButtonActivated(this);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

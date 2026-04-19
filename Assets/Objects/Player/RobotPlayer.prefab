@@ -393,6 +393,7 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 64
+  jumpSound: {fileID: 11400000, guid: 50bffb39f5c50a9429d852c6cd0b0e16, type: 2}
   antennaAnim: {fileID: 4278901552869152756}
   currentMode: 0
 --- !u!114 &5117282951603068317
