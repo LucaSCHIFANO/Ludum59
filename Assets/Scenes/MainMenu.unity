@@ -5434,7 +5434,7 @@ PrefabInstance:
     - target: {fileID: 1598421906001989286, guid: 36f721f70970f464fac0bb8baafb8ced, type: 3}
       propertyPath: soundToPlayAtStart
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 187048b7505882e4da9db94b12d72a2e, type: 2}
     - target: {fileID: 6249251396483791134, guid: 36f721f70970f464fac0bb8baafb8ced, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.11433
