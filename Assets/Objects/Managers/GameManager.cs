@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     public event ShowAllInfos ShowInfos;
 
     static GameManager instance;
+
+    private int call = 0;
     public static GameManager Instance
     {
         get => instance;
@@ -71,6 +73,7 @@ public class GameManager : MonoBehaviour
                 timeText.text = timer.ToString("f3");
                 break;
             case RobotCharacter.CurrentMode.Playing:
+                if(call > 1)
                 timer -= Time.deltaTime;
                 timeText.text = Mathf.Clamp(timer, 0, 100).ToString("f3");
                 break;
@@ -96,7 +99,9 @@ public class GameManager : MonoBehaviour
                 break;
             case RobotCharacter.CurrentMode.Playing:
                 modeText.text = "Playing Inputs...";
-                ResetTraps?.Invoke();
+                if (call != 0)
+                    ResetTraps?.Invoke();
+                call++;
                 CancelInvoke("PlayBeat");
                 break;
             case RobotCharacter.CurrentMode.RealTimePlaying:

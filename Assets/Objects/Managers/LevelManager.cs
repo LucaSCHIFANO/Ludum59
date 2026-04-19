@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +17,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject leftTransition;
     [SerializeField] private GameObject rightTransition;
     [SerializeField] private Animator anim;
-
+    private bool canReset;
 
     [Header("Scenes")]
     [SerializeField] private LevelList listScene;
@@ -37,8 +38,10 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator SpawnAnimation()
     {
+        canReset = false;
         FadeOut();
         yield return new WaitForSeconds(0.6f);
+        canReset = true;
         leftTransition.SetActive(false);
         rightTransition.SetActive(false);
     }
@@ -62,22 +65,32 @@ public class LevelManager : MonoBehaviour
     //pour le menu car il ne peut pas avoir 2 parametres
     public void LoadScene(int id)
     {
+        if (!canReset)
+            return;
+
         StartCoroutine(LoadSceneAnimation(id, true));
     }
 
     public void LoadScene(int id, bool skipWait = false)
     {
+        if (!canReset)
+            return;
+
         StartCoroutine(LoadSceneAnimation(id, skipWait));
     }
 
     public void LoadMainMenu(bool skipWait = false)
     {
+        if (!canReset)
+            return;
         StartCoroutine(LoadSceneAnimation(-1, skipWait));
     }
 
     IEnumerator LoadSceneAnimation(int id, bool skipWait = false)
     {
-        if(!skipWait)
+        canReset = false;
+
+        if (!skipWait)
             yield return new WaitForSeconds(1f);
 
         FadeIn();
@@ -88,6 +101,7 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(0.6f);
         leftTransition.SetActive(false);
         rightTransition.SetActive(false);
+        canReset = true;
     }
 
     private void TrueLoadScene(int id)

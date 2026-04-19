@@ -1886,7 +1886,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3856085191026364759, guid: ce113361e6aaa9a46811b970bd097457, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.8499999
+      value: 1.08
       objectReference: {fileID: 0}
     - target: {fileID: 4661698378257711358, guid: ce113361e6aaa9a46811b970bd097457, type: 3}
       propertyPath: orthographic size

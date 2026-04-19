@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -32,6 +33,9 @@ public class RobotCharacter : MonoBehaviour
     [SerializeField] float extraHeightBelow;
     [SerializeField] private LayerMask ground;
 
+    [Header("Antenna")]
+    [SerializeField] private Animator antennaAnim;
+
     
     private int inputId;
 
@@ -40,9 +44,10 @@ public class RobotCharacter : MonoBehaviour
     private List<InputClass> inputList = new List<InputClass>();
 
     public delegate void ModeHandler(CurrentMode mode);
-    public event ModeHandler ModeChange;
+    public event ModeHandler    ModeChange;
 
     private CurrentState currentState;
+    private bool stopRecording;
 
     public delegate void StateHandler(CurrentState mode);
     public event StateHandler StateChange;
@@ -148,6 +153,28 @@ public class RobotCharacter : MonoBehaviour
 
     private void ChangeMode(CurrentMode newMode)
     {
+        
+        StartCoroutine(ChangeModeCall(newMode));
+    }
+
+    IEnumerator ChangeModeCall(CurrentMode newMode)
+    {
+        switch (newMode)
+        {
+            case CurrentMode.Recording:
+                antennaAnim.Play("AntennaSpawn");
+                stopRecording = false;
+                break;
+            case CurrentMode.Playing:
+                antennaAnim.Play("AntennaReceive");
+                stopRecording = true;
+                ModeChange?.Invoke(newMode);
+                yield return new WaitForSeconds(0.5f);
+                antennaAnim.Play("AntennaNo");
+                break;
+            default:
+                break;
+        }
         currentMode = newMode;
         ModeChange?.Invoke(currentMode);
     }
@@ -155,12 +182,15 @@ public class RobotCharacter : MonoBehaviour
     private void ChangeState(CurrentState newState)
     {
        currentState = newState;
-        StateChange?.Invoke(currentState);
+       StateChange?.Invoke(currentState);
     }
 
     #region Inputs
     private void RecordInput()
     {
+        if (stopRecording)
+            return;
+
         inputList.Add(new InputClass(currentJoystickPosition.x, isJumping, !isJumpingLast && isJumping));
         isJumpingLast = isJumping;
 
@@ -255,55 +285,61 @@ public class RobotCharacter : MonoBehaviour
 
     private void SetAnimations()
     {
-        switch (currentState)
+        if (currentMode == CurrentMode.Recording)
         {
-            case CurrentState.Alive:
-                var running = false;
-                if (rb.linearVelocityX > 0)
-                {
-                    sr.flipX = false;
-                    running = true;
-                }
-                else if (rb.linearVelocityX < 0)
-                {
-                    sr.flipX = true;
-                    running = true;
-                }
+            anim.Play("PlayerIdle2");
+        }
+        else
+        {
+            switch (currentState)
+            {
+                case CurrentState.Alive:
+                    var running = false;
+                    if (rb.linearVelocityX > 0)
+                    {
+                        sr.flipX = false;
+                        running = true;
+                    }
+                    else if (rb.linearVelocityX < 0)
+                    {
+                        sr.flipX = true;
+                        running = true;
+                    }
 
-                if (IsGrounded())
-                {
-                    if (running)
-                        anim.Play("PlayerRun");
-                    else anim.Play("PlayerIdle");
-                }
-                else
-                {
-                    anim.Play("PlayerJump");
-                }
-                break;
-
-            case CurrentState.Dead:
-                /*if(isDeadByHazard)
-                {
-                    anim.Play("PlayerDeath");
-                }else*/ if (IsGrounded())
-                {
-                    anim.Play("PlayerDeath2");
-                }
+                    if (IsGrounded())
+                    {
+                        if (running)
+                            anim.Play("PlayerRun");
+                        else anim.Play("PlayerIdle");
+                    }
+                    else
+                    {
+                        anim.Play("PlayerJump");
+                    }
                     break;
 
-            case CurrentState.Win:
-                winTimer += Time.deltaTime;
-                if (winTimer <= 0.5f)
-                    anim.Play("PlayerWin");
-                else
-                    anim.Play("PlayerWin2");
-                break;
-            default:
-                break;
+                case CurrentState.Dead:
+                    /*if(isDeadByHazard)
+                    {
+                        anim.Play("PlayerDeath");
+                    }else*/
+                    if (IsGrounded())
+                    {
+                        anim.Play("PlayerDeath2");
+                    }
+                    break;
+
+                case CurrentState.Win:
+                    winTimer += Time.deltaTime;
+                    if (winTimer <= 0.5f)
+                        anim.Play("PlayerWin");
+                    else
+                        anim.Play("PlayerWin2");
+                    break;
+                default:
+                    break;
+            }
         }
-
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
