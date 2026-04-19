@@ -27,8 +27,8 @@ public class MainMenu : MonoBehaviour
     public enum MenuType
     {
         Main = 0,
-        Options = 1,
-        LevelSelect = 2,
+        LevelSelect = 1,
+        Options = 2,
         Tuto = 3,
         Quit = 4,
     }
@@ -55,6 +55,9 @@ public class MainMenu : MonoBehaviour
     {
         if (!canInteract)
             return; 
+
+        buttonID = menuTypeID;
+        cursor.transform.position = cursorPositionList[buttonID].position;
 
         switch ((MenuType)menuTypeID)
         {

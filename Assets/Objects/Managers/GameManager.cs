@@ -90,10 +90,10 @@ public class GameManager : MonoBehaviour
         switch (currentMode)
         {
             case RobotCharacter.CurrentMode.Looking:
-                modeText.text = "Press Start/Enter when you are ready to record";
+                modeText.text = "Press Start/Enter when \n\ryou are ready to record";
                 break;
             case RobotCharacter.CurrentMode.Recording:
-                modeText.text = "Recording Inputs... ¨Press Start/Enter again to stop recording";
+                modeText.text = "Recording Inputs... \n\rPress Start/Enter again to stop recording";
                 ResetTraps?.Invoke();
                 InvokeRepeating("PlayBeat", 0, 1);
                 break;
