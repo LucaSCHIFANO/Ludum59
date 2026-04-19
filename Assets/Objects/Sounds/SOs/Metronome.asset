@@ -15,7 +15,7 @@ MonoBehaviour:
   sounds:
   - clip: {fileID: 8300000, guid: f32cca1fdf4412b4091d881366b8ca24, type: 3}
     weight: 1
-  soundType: 0
+  soundType: 1
   isVolumeRandom: 0
   volume: 0.1
   minRandomVolume: 0

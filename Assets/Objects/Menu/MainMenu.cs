@@ -5,7 +5,10 @@ using UnityEngine.Audio;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject OptionsTab;
-    private bool isOptionsOpened = false;
+    private bool isOptionsOpen = false;
+
+    [SerializeField] private GameObject LevelSelectTab;
+    private bool isLevelSelectOpen = false;
 
     [SerializeField] private GameObject quitButton;
 
@@ -20,6 +23,7 @@ public class MainMenu : MonoBehaviour
         Main = 0,
         Options = 1,
         Quit = 2,
+        LevelSelect = 3,
     }
 
     private void Start()
@@ -30,6 +34,7 @@ public class MainMenu : MonoBehaviour
         }
 
         OptionsTab.SetActive(false);
+        LevelSelectTab.SetActive(false);
     }
 
     public void OpenMenu(int menuTypeID)
@@ -44,12 +49,16 @@ public class MainMenu : MonoBehaviour
                 LevelManager.Instance.LoadScene(0, true);
                 break;
             case MenuType.Options:
-                OptionsTab.SetActive(!isOptionsOpened);
-                isOptionsOpened = !isOptionsOpened;
+                OptionsTab.SetActive(!isOptionsOpen);
+                isOptionsOpen = !isOptionsOpen;
                 break;
             case MenuType.Quit:
                 canInteract = false;
                 LevelManager.Instance.QuitGame();
+                break;
+            case MenuType.LevelSelect:
+                LevelSelectTab.SetActive(!isLevelSelectOpen);
+                isLevelSelectOpen = !isLevelSelectOpen;
                 break;
             default:
                 break;
