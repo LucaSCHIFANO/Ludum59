@@ -129,6 +129,39 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "D_Pad",
+                    "id": "72513b3c-ba32-4af1-a710-11a2e1b7dcfa",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "f4118115-30eb-4953-8437-c6e13e110177",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "5011780c-fbc5-40ff-961b-03c8c6f8ab5f",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "b8b29b28-d157-4056-868a-3254f1a60d45",
                     "path": "<Gamepad>/buttonSouth",

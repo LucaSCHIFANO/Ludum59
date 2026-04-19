@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject OptionsTab;
-    private bool isOptionsOpen = false;
-
-    [SerializeField] private GameObject LevelSelectTab;
-    private bool isLevelSelectOpen = false;
+    [SerializeField] private GameObject optionsTab;
+    [SerializeField] private GameObject levelSelectTab;
+    [SerializeField] private GameObject tutoTab;
 
     [SerializeField] private GameObject quitButton;
 
@@ -20,14 +19,18 @@ public class MainMenu : MonoBehaviour
 
     [Header("Cursor")]
     [SerializeField] private GameObject cursor;
-    private int ID;
+    [SerializeField] private List<Transform> cursorPositionList = new List<Transform>();
+
+    private int buttonID = 0;
+    private bool inSubMenu = false;
 
     public enum MenuType
     {
         Main = 0,
         Options = 1,
-        Quit = 2,
-        LevelSelect = 3,
+        LevelSelect = 2,
+        Tuto = 3,
+        Quit = 4,
     }
 
     private void Start()
@@ -37,8 +40,15 @@ public class MainMenu : MonoBehaviour
             quitButton.SetActive(false);
         }
 
-        OptionsTab.SetActive(false);
-        LevelSelectTab.SetActive(false);
+        optionsTab.SetActive(false);
+        levelSelectTab.SetActive(false);
+
+        Invoke("SetButtonPos", 0.5f);
+    }
+
+    private void SetButtonPos()
+    {
+        cursor.transform.position = cursorPositionList[buttonID].position;
     }
 
     public void OpenMenu(int menuTypeID)
@@ -53,16 +63,20 @@ public class MainMenu : MonoBehaviour
                 LevelManager.Instance.LoadScene(0, true);
                 break;
             case MenuType.Options:
-                OptionsTab.SetActive(!isOptionsOpen);
-                isOptionsOpen = !isOptionsOpen;
+                inSubMenu = !inSubMenu;
+                optionsTab.SetActive(inSubMenu);
+                break;
+            case MenuType.LevelSelect:
+                inSubMenu = !inSubMenu;
+                levelSelectTab.SetActive(inSubMenu);
+                break;
+            case MenuType.Tuto:
+                inSubMenu = !inSubMenu;
+                tutoTab.SetActive(inSubMenu);
                 break;
             case MenuType.Quit:
                 canInteract = false;
                 LevelManager.Instance.QuitGame();
-                break;
-            case MenuType.LevelSelect:
-                LevelSelectTab.SetActive(!isLevelSelectOpen);
-                isLevelSelectOpen = !isLevelSelectOpen;
                 break;
             default:
                 break;
@@ -80,6 +94,53 @@ public class MainMenu : MonoBehaviour
     public void SetSFXVolume(float volume)
     {
         sfxAudioMixer.audioMixer.SetFloat("SFXVolume", Mathf.Log(volume) * 20);
+    }
+
+    private void Move(bool up)
+    {
+        if (up)
+            buttonID--;
+        else 
+            buttonID++;
+
+        if (buttonID < 0)
+            buttonID = cursorPositionList.Count - 1;
+        else if(buttonID > cursorPositionList.Count - 1)
+            buttonID = 0;
+
+        SetButtonPos();
+    }
+
+    public void UpInput(InputAction.CallbackContext context)
+    {
+        if (context.performed && !inSubMenu)
+        {
+            Move(true);
+        }
+    }
+
+    public void DownInput(InputAction.CallbackContext context)
+    {
+        if (context.performed && !inSubMenu)
+        {
+            Move(false);
+        }
+    }
+
+    public void ConfirmInput(InputAction.CallbackContext context)
+    {
+        if (context.performed && !inSubMenu)
+        {
+            OpenMenu(buttonID);
+        }
+    }
+
+    public void CancelInput(InputAction.CallbackContext context)
+    {
+        if (context.performed && inSubMenu)
+        {
+            OpenMenu(buttonID);
+        }
     }
 
 }
