@@ -163,6 +163,11 @@ public class RobotCharacter : MonoBehaviour
     {
         inputList.Add(new InputClass(currentJoystickPosition.x, isJumping, !isJumpingLast && isJumping));
         isJumpingLast = isJumping;
+
+        if(inputList.Count > 5000)
+        {
+            ChangeMode(CurrentMode.Playing);
+        }
     }
 
     private void ReadInput()
@@ -303,9 +308,9 @@ public class RobotCharacter : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Exit")
+        if (collision.tag == "Exit" && currentState == CurrentState.Alive)
             Victory(collision);
-        else if (collision.tag == "Death")
+        else if (collision.tag == "Death" && currentState == CurrentState.Alive)
             Death(true);
     }
 
