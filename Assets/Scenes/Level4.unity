@@ -391,6 +391,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThunderBarriere
       objectReference: {fileID: 0}
+    - target: {fileID: 2981085150732692086, guid: 5dfb1e1425f620540aadf05d1aa02ea1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3310191484961183947, guid: 5dfb1e1425f620540aadf05d1aa02ea1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.49
@@ -434,6 +438,14 @@ PrefabInstance:
     - target: {fileID: 5555202873005887015, guid: 5dfb1e1425f620540aadf05d1aa02ea1, type: 3}
       propertyPath: timeBeforeActivation
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8437369432245604988, guid: 5dfb1e1425f620540aadf05d1aa02ea1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 8437369432245604988, guid: 5dfb1e1425f620540aadf05d1aa02ea1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -952,6 +964,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThunderBarriere (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2981085150732692086, guid: 5dfb1e1425f620540aadf05d1aa02ea1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3310191484961183947, guid: 5dfb1e1425f620540aadf05d1aa02ea1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.51
@@ -995,6 +1011,14 @@ PrefabInstance:
     - target: {fileID: 5555202873005887015, guid: 5dfb1e1425f620540aadf05d1aa02ea1, type: 3}
       propertyPath: timeBeforeActivation
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8437369432245604988, guid: 5dfb1e1425f620540aadf05d1aa02ea1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 8437369432245604988, guid: 5dfb1e1425f620540aadf05d1aa02ea1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
