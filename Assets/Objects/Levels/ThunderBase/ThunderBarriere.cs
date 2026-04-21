@@ -14,6 +14,9 @@ public class ThunderBarriere : MonoBehaviour
     [SerializeField] private float timeBetweenActivation;
     [SerializeField] private float timeActive;
 
+    /// <summary>
+    /// Set up the text message
+    /// </summary>
     private void Start()
     {
         GameManager.Instance.ResetTraps += Reset;
@@ -43,6 +46,10 @@ public class ThunderBarriere : MonoBehaviour
         StartCoroutine(Thunder());
     }
 
+    /// <summary>
+    /// Used to animate and spawn thunder
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Thunder()
     {
         thunder.SetActive(true);

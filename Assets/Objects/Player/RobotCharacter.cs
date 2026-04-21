@@ -80,6 +80,10 @@ public class RobotCharacter : MonoBehaviour
         inputId = 0;
     }
 
+    /// <summary>
+    /// Will be executed 50 per second.
+    /// The mode will determine which action will be done
+    /// </summary>
     private void FixedUpdate()
     {
         if (currentState != CurrentState.Alive)
@@ -102,12 +106,17 @@ public class RobotCharacter : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Only manages the player animations
+    /// </summary>
     void Update()
     {
         SetAnimations(); 
     }
 
-
+    /// <summary>
+    /// Receive an input and move the character accordingly
+    /// </summary>
     private void Movement(float currentJoystickX)
     {
 
@@ -122,10 +131,11 @@ public class RobotCharacter : MonoBehaviour
 
 
         rb.linearVelocity = new Vector2(horizontalMovement, verticalMovement);
-
-
     }
 
+    /// <summary>
+    //// Receive an input and makes the character jump if needed
+    /// </summary>
     private void Jump(ref bool _isJumping)
     {
         if (currentJumpTime <= 0) _isJumping = false;
@@ -139,6 +149,10 @@ public class RobotCharacter : MonoBehaviour
         else rb.gravityScale = gravityFall;
     }
 
+    /// <summary>
+    /// Check if the character is on the ground with a small raycast at the edge of the collider
+    /// </summary>
+    /// <returns></returns>
     public bool IsGrounded()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(bc.bounds.center,
@@ -152,12 +166,18 @@ public class RobotCharacter : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Allow the player to change mode
+    /// </summary>
     private void ChangeMode(CurrentMode newMode)
     {
-        
         StartCoroutine(ChangeModeCall(newMode));
     }
 
+    /// <summary>
+    /// The Coroutine is here to handle the animations and to send info through delegate (with invoke)
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ChangeModeCall(CurrentMode newMode)
     {
         switch (newMode)
@@ -180,6 +200,9 @@ public class RobotCharacter : MonoBehaviour
         ModeChange?.Invoke(currentMode);
     }
 
+    /// <summary>
+    /// Allow the player to change state and to send info through delegate (with invoke)
+    /// </summary>
     private void ChangeState(CurrentState newState)
     {
        currentState = newState;
@@ -187,6 +210,9 @@ public class RobotCharacter : MonoBehaviour
     }
 
     #region Inputs
+    /// <summary>
+    /// In Recording mode, will store inputs in <see cref="InputClass"/>. Cannot exced 5000 (100 seconds);
+    /// </summary>
     private void RecordInput()
     {
         if (stopRecording)
@@ -195,12 +221,16 @@ public class RobotCharacter : MonoBehaviour
         inputList.Add(new InputClass(currentJoystickPosition.x, isJumping, !isJumpingLast && isJumping));
         isJumpingLast = isJumping;
 
-        if(inputList.Count > 5000)
+        if(inputList.Count > 5000) // better to use a field x)
         {
             ChangeMode(CurrentMode.Playing);
         }
     }
 
+    /// <summary>
+    /// In Playing mode, will read inputs in <see cref="InputClass"/> and 
+    /// send them in the <see cref="Movement(float)"/> and <see cref="Jump(ref bool)"/> functions
+    /// </summary>
     private void ReadInput()
     {
         if (inputId < inputList.Count)
@@ -229,11 +259,16 @@ public class RobotCharacter : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Store movements input to be used later in <see cref="Movement(float)"/> or <see cref="ReadInput"/>
+    /// </summary>
+    /// <param name="context"></param>
     public void MovementInput(InputAction.CallbackContext context)
     {
         currentJoystickPosition = new Vector2(context.ReadValue<float>(), 0);
     }
 
+    /// Store jump input to be used later in <see cref="Jump(ref bool)"/> or <see cref="ReadInput"/>
     public void JumpInput(InputAction.CallbackContext context)
     {
 
@@ -254,6 +289,8 @@ public class RobotCharacter : MonoBehaviour
         }
     }
 
+    /// Allow the player to change state
+
     public void EndRecordingInput(InputAction.CallbackContext context)
     {
         if (context.performed && currentMode == CurrentMode.Looking)
@@ -266,6 +303,7 @@ public class RobotCharacter : MonoBehaviour
         }
     }
 
+    /// Allow the player to show the info on the hazards in the level
     public void ShowTimingInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -278,6 +316,7 @@ public class RobotCharacter : MonoBehaviour
         }
     }
 
+    /// Allow the player return to the main menu
     public void QuitInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -286,6 +325,7 @@ public class RobotCharacter : MonoBehaviour
         }
     }
 
+    /// Allow the player to reset the current level
     public void ResetInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -296,6 +336,9 @@ public class RobotCharacter : MonoBehaviour
     }
     #endregion
 
+    /// <summary>
+    /// Change player animation
+    /// </summary>
     private void SetAnimations()
     {
         if (currentMode == CurrentMode.Recording)

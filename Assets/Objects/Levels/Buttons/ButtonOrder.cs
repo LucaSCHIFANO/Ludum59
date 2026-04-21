@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+    using System.Collections.Generic;
 using UnityEngine;
 
 public class ButtonOrder : MonoBehaviour
@@ -17,6 +17,9 @@ public class ButtonOrder : MonoBehaviour
 
     private bool isActivated;
 
+    /// <summary>
+    /// Store the door to which the button is linked
+    /// </summary>
     public void SetDoor(Door door, int id)
     {
         this.door = door;
@@ -25,6 +28,10 @@ public class ButtonOrder : MonoBehaviour
         else srNumber.sprite = spriteList[id];
     }
 
+    /// <summary>
+    /// If the button is turn on/off
+    /// </summary>
+    /// <param name="activate"></param>
     public void Activate(bool activate)
     {
         isActivated = activate;
@@ -35,6 +42,8 @@ public class ButtonOrder : MonoBehaviour
             door?.ButtonActivated(this);
         }
     }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player" && !isActivated)

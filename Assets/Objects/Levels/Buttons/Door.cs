@@ -31,6 +31,12 @@ public class Door : MonoBehaviour
         colliderClosed.SetActive(true);
     }
 
+    /// <summary>
+    /// Check which button has been activated
+    /// If its the good order, increase the id (or open the door)
+    /// otherwise, reset the order
+    /// </summary>
+    /// <param name="button"></param>
     public void ButtonActivated(ButtonOrder button)
     {
         if (isOpen)

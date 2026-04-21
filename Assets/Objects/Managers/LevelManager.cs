@@ -34,6 +34,9 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(SpawnAnimation());
     }
 
+    /// <summary>
+    /// Manages start transition animation
+    /// </summary>
     IEnumerator SpawnAnimation()
     {
         canReset = false;
@@ -75,6 +78,9 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(LoadSceneAnimation(-1, skipWait));
     }
 
+    /// <summary>
+    /// Manages transition animation between 2 scenes
+    /// </summary>
     IEnumerator LoadSceneAnimation(int id, bool skipWait = false)
     {
         canReset = false;
@@ -93,6 +99,10 @@ public class LevelManager : MonoBehaviour
         canReset = true;
     }
 
+    /// <summary>
+    /// Function that actually load the scene
+    /// </summary>
+    /// <param name="id"></param>
     private void TrueLoadScene(int id)
     {
         levelID = id;

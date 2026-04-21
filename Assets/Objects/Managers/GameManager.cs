@@ -48,6 +48,10 @@ public class GameManager : MonoBehaviour
         infoText.SetActive(showInfoText);
     }
 
+    /// <summary>
+    /// Subscribes to delegated
+    /// </summary>
+
     void Start()
     {
         robotCharacter.ModeChange += ChangeMode;
@@ -62,6 +66,9 @@ public class GameManager : MonoBehaviour
         robotCharacter.StateChange -= ChangeState;
     }
 
+    /// <summary>
+    /// Start or stop the timer based on the player mode
+    /// </summary>
     private void Update()
     {
         switch (currentMode)
@@ -85,6 +92,10 @@ public class GameManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Updates the text based on the player mode
+    /// </summary>
+    /// <param name="currentMode"></param>
     private void ChangeMode(RobotCharacter.CurrentMode currentMode)
     {
         switch (currentMode)
@@ -113,6 +124,10 @@ public class GameManager : MonoBehaviour
         this.currentMode = currentMode;
     }
 
+    /// <summary>
+    /// Play sound or load scene based on player state
+    /// </summary>
+    /// <param name="currentState"></param>
     private void ChangeState(RobotCharacter.CurrentState currentState)
     {
         switch (currentState)

@@ -19,6 +19,10 @@ public class Elevator : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
+
+    /// <summary>
+    /// Set up the text message
+    /// </summary>
     private void Start()
     {
         initialPosition.position = transform.position;
@@ -54,6 +58,10 @@ public class Elevator : MonoBehaviour
         rb.MovePosition(transform.position + targetDirection * speed * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Used to move the platform between 2 points
+    /// </summary>
+    /// <returns></returns>
     private void Reset()
     {
         var saveInitialPos = initialPosition.position;
@@ -67,8 +75,6 @@ public class Elevator : MonoBehaviour
 
         Vector3 targetDirection = (currentTarget.position - transform.position).normalized;
         rb.MovePosition(transform.position + targetDirection * speed * Time.deltaTime);
-
-
     }
     public void ShowInfo(bool show)
     {

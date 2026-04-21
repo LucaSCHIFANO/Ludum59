@@ -51,6 +51,10 @@ public class MainMenu : MonoBehaviour
         cursor.transform.position = cursorPositionList[buttonID].position;
     }
 
+    /// <summary>
+    /// Open different submenus on the main menu
+    /// </summary>
+    /// <param name="menuTypeID"></param>
     public void OpenMenu(int menuTypeID)
     {
         if (!canInteract)
@@ -99,6 +103,10 @@ public class MainMenu : MonoBehaviour
         sfxAudioMixer.audioMixer.SetFloat("SFXVolume", Mathf.Log(volume) * 20);
     }
 
+    /// <summary>
+    /// Move the cursor on the menu
+    /// </summary>
+    /// <param name="up"></param>
     private void Move(bool up)
     {
         if (up)

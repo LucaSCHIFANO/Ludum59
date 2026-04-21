@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// A class that stores all the inputs a player can enter at the same time
+/// </summary>
 [Serializable]
 public class InputClass
 {
